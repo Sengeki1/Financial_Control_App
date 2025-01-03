@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        TextView balanceAmount = findViewById(R.id.tvBalanceAmount);
+        TextView revenueAmount = findViewById(R.id.tvRevenueAmount);
+        TextView expenseAmount = findViewById(R.id.tvExpenseAmount);
+
+        Button btnAddRevenue = findViewById(R.id.btnAddRevenue);
+        Button btnAddExpense = findViewById(R.id.btnAddExpense);
+        Button btnViewTransactions = findViewById(R.id.btnViewTransactions);
+
+
     }
 }
