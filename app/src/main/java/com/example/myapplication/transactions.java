@@ -50,7 +50,7 @@ public class transactions extends AppCompatActivity {
             return insets;
         });
 
-        getIntent().getStringExtra("Checker");
+        int checker = (int) getIntent().getExtras().get("Checker");
 
         showDateView = findViewById(R.id.tvSelectedDate);
         EditText titulo = findViewById(R.id.etTitle);
