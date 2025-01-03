@@ -8,53 +8,57 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/relativeLayout"
+        android:layout_width="411dp"
+        android:layout_height="396dp"
+        android:background="#F8F9FA"
         android:padding="16dp"
-        android:background="#F8F9FA">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="48dp">
 
         <!-- Header -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dashboard"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textColor="#333" />
+            android:layout_marginBottom="16dp"
+            android:text="@string/dashboard"
+            android:textColor="#333"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <!-- Current Balance Card -->
         <LinearLayout
             android:id="@+id/cardBalance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@drawable/card_background"
             android:layout_below="@id/tvTitle"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/tvBalanceLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Saldo Atual"
+                android:text="@string/saldo_atual"
+                android:textColor="#444"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#444" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvBalanceAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="R$ 0.00"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:text="@string/r_0_00"
                 android:textColor="#4CAF50"
-                android:layout_marginTop="8dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Total Revenue Card -->
@@ -62,30 +66,30 @@
             android:id="@+id/cardRevenue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@drawable/card_background"
             android:layout_below="@id/cardBalance"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/tvRevenueLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total de Receitas"
+                android:text="@string/total_de_receitas"
+                android:textColor="#444"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#444" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvRevenueAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="R$ 0.00"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:text="@string/r_0_00"
                 android:textColor="#2196F3"
-                android:layout_marginTop="8dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Total Expense Card -->
@@ -93,70 +97,67 @@
             android:id="@+id/cardExpense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@drawable/card_background"
             android:layout_below="@id/cardRevenue"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/tvExpenseLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total de Despesas"
+                android:text="@string/total_de_despesas"
+                android:textColor="#444"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#444" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvExpenseAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="R$ 0.00"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:text="@string/r_0_00"
                 android:textColor="#F44336"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/card_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_below="@id/cardExpense"
-            android:layout_marginTop="16dp">
-
-        <Button
-            android:id="@+id/btnAddRevenue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Receita"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/btnAddExpense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Despesa"
-            android:layout_below="@id/btnAddRevenue"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#F44336"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/btnViewTransactions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Transações"
-            android:layout_below="@id/btnAddExpense"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#2196F3"
-            android:textColor="#FFFFFF" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnAddRevenue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="439dp"
+        android:backgroundTint="#4CAF50"
+        android:text="@string/receita"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/btnAddExpense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="#F44336"
+        android:text="@string/despesa"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="@+id/btnAddRevenue"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/btnViewTransactions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="63dp"
+        android:backgroundTint="#2196F3"
+        android:text="@string/transa_es"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="@+id/btnAddExpense"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

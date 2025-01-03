@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -31,6 +33,22 @@ public class MainActivity extends AppCompatActivity {
         Button btnAddExpense = findViewById(R.id.btnAddExpense);
         Button btnViewTransactions = findViewById(R.id.btnViewTransactions);
 
+        Intent transactionIntent = new Intent(this, transactions.class);
 
+        btnAddRevenue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transactionIntent.putExtra("Checker", 0); // if 0 meaning the transaction amount should be positive;
+                startActivity(transactionIntent);
+            }
+        });
+
+        btnAddExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transactionIntent.putExtra("Checker", 1); // if 0 meaning the transaction amount should be negative;
+                startActivity(transactionIntent);
+            }
+        });
     }
 }
