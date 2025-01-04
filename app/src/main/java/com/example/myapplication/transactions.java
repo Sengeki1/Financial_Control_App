@@ -17,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.room.Room;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,6 +27,7 @@ public class transactions extends AppCompatActivity {
     String category = "";
     TextView showDateView;
 
+    // ----------- CALLBACK FUNCTION --------- //
     showDate showdate = new showDate() {
         @Override
         public void returnDate(String value) {
@@ -53,7 +55,7 @@ public class transactions extends AppCompatActivity {
         int checker = (int) getIntent().getExtras().get("Checker");
 
         showDateView = findViewById(R.id.tvSelectedDate);
-        EditText titulo = findViewById(R.id.etTitle);
+        EditText title = findViewById(R.id.etTitle);
         EditText value = findViewById(R.id.etValue);
         Button selectDate = findViewById(R.id.btnSelectDate);
         Button cancel = findViewById(R.id.btnCancel);
@@ -62,6 +64,12 @@ public class transactions extends AppCompatActivity {
 
         Intent intentDashboard = new Intent(this, MainActivity.class);
 
+        // --------------------- DATABASE LOGIC ------------------- //
+        TransactionDatabase db = Room.databaseBuilder(
+                getBaseContext(), TransactionDatabase.class, "transaction-database"
+        ).allowMainThreadQueries().build();
+
+        // ----------------------- BUTTONS LOGIC ------------------------ //
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,10 +80,10 @@ public class transactions extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String n_titulo = String.valueOf(titulo.getText());
+                String n_title = String.valueOf(title.getText());
                 String n_value = String.valueOf(value.getText());
 
-                if (!n_titulo.isEmpty() && !n_value.isEmpty()) {
+                if (!n_title.isEmpty() && !n_value.isEmpty()) {
                     if (date.isEmpty()) {
                         final Calendar calendar = Calendar.getInstance();
                         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -88,6 +96,10 @@ public class transactions extends AppCompatActivity {
                     if (category.isEmpty()) {
                         category = "Alimentação";
                     }
+
+                    Transaction transaction = new Transaction(n_title, Integer.valueOf(n_value), category, date);
+                    db.transactionDao().insert(transaction);
+
                     startActivity(intentDashboard);
                 } else {
                     Toast.makeText(getBaseContext(), "Porfavor prencha os campos", Toast.LENGTH_LONG).show();
@@ -98,12 +110,13 @@ public class transactions extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                titulo.setText("");
+                title.setText("");
                 value.setText("");
                 startActivity(intentDashboard);
             }
         });
 
+        // -------------------- SPINNER ------------------- //
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

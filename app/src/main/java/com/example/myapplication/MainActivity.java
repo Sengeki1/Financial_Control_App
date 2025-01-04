@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         Intent transactionIntent = new Intent(this, transactions.class);
 
+        // --------------------- DATABASE LOGIC ------------------- //
+        TransactionDatabase db = Room.databaseBuilder(
+                getBaseContext(), TransactionDatabase.class, "transaction-database"
+        ).allowMainThreadQueries().build();
+
         btnAddRevenue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +58,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 transactionIntent.putExtra("Checker", 1); // if 0 meaning the transaction amount should be negative;
                 startActivity(transactionIntent);
+            }
+        });
+
+        btnViewTransactions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Transaction> transactions = db.transactionDao().getAllTransactions();
+
+                for (Transaction transaction : transactions) {
+                    Log.d("transaction", transaction.title + " " +
+                            String.valueOf(transaction.value) + " " +
+                            transaction.category + " " +
+                            transaction.date);
+                }
             }
         });
     }
