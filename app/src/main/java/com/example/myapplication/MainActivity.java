@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnViewTransactions = findViewById(R.id.btnViewTransactions);
 
         Intent transactionIntent = new Intent(this, transactions.class);
+        Intent showTransactionsIntent = new Intent(this, transactions_list.class);
 
         // --------------------- DATABASE LOGIC ------------------- //
         TransactionDatabase db = Room.databaseBuilder(
@@ -64,14 +65,7 @@ public class MainActivity extends AppCompatActivity {
         btnViewTransactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Transaction> transactions = db.transactionDao().getAllTransactions();
-
-                for (Transaction transaction : transactions) {
-                    Log.d("transaction", transaction.title + " " +
-                            String.valueOf(transaction.value) + " " +
-                            transaction.category + " " +
-                            transaction.date + " " + transaction.color);
-                }
+                startActivity(showTransactionsIntent);
             }
         });
     }
