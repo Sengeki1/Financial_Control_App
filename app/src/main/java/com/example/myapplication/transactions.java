@@ -97,7 +97,16 @@ public class transactions extends AppCompatActivity {
                         category = "Alimentação";
                     }
 
-                    Transaction transaction = new Transaction(n_title, Integer.valueOf(n_value), category, date);
+                    String color = "#4CAF50";
+                    if (checker == 0) {
+                        color = "#4CAF50";
+                    } else {
+                        color = "#FF0000";
+                        int negative_value = Integer.valueOf(n_value);
+                        n_value = String.valueOf(-negative_value);
+                    }
+
+                    Transaction transaction = new Transaction(n_title, Integer.parseInt(n_value), category, date, color);
                     db.transactionDao().insert(transaction);
 
                     startActivity(intentDashboard);

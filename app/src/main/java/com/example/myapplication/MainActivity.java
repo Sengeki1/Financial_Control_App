@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("transaction", transaction.title + " " +
                             String.valueOf(transaction.value) + " " +
                             transaction.category + " " +
-                            transaction.date);
+                            transaction.date + " " + transaction.color);
                 }
             }
         });

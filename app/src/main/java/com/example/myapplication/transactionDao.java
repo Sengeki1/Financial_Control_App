@@ -14,4 +14,7 @@ public interface transactionDao {
 
     @Query("SELECT * FROM `transaction`")
     List<Transaction> getAllTransactions();
+
+    @Query("DELETE FROM `transaction`")
+    void deleteAll();
 }

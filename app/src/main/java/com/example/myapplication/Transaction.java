@@ -22,10 +22,14 @@ public class Transaction {
     @ColumnInfo(name = "date")
     public String date;
 
-    public Transaction(String title, int value, String category, String date) {
+    @ColumnInfo(name = "color")
+    public String color;
+
+    public Transaction(String title, int value, String category, String date, String color) {
         this.title = title;
         this.value = value;
         this.category = category;
         this.date = date;
+        this.color = color;
     }
 }

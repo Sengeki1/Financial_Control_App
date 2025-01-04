@@ -3,7 +3,7 @@
     <string name="despesa">Despesa</string>
     <string name="receita">Receita</string>
     <string name="transa_es">Transações</string>
-    <string name="r_0_00">R$ 0.00</string>
+    <string name="r_0_00">USD $ </string>
     <string name="total_de_despesas">Total de Despesas</string>
     <string name="total_de_receitas">Total de Receitas</string>
     <string name="saldo_atual">Saldo Atual</string>
