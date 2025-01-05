@@ -13,8 +13,43 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private void refreshData() {
+        TransactionDatabase db = Room.databaseBuilder(
+                getBaseContext(), TransactionDatabase.class, "transaction-database"
+        ).allowMainThreadQueries().build();
+
+        List<Transaction> transactions = db.transactionDao().getAllTransactions();
+
+        int total_balance = 0;
+        int total_revenue = 0;
+        int total_expense = 0;
+
+        // Calculate total revenue, total expense, and total balance
+        for (Transaction transaction : transactions) {
+            if (transaction.color.equals("#4CAF50")) { // positive revenue
+                total_revenue += transaction.value;
+            } else {
+                total_expense += transaction.value;
+            }
+        }
+
+        total_balance = total_expense + total_revenue;;
+
+        // Update the UI with the new values
+        TextView balanceAmount = findViewById(R.id.tvBalanceAmount);
+        TextView revenueAmount = findViewById(R.id.tvRevenueAmount);
+        TextView expenseAmount = findViewById(R.id.tvExpenseAmount);
+
+        balanceAmount.setText(String.valueOf(total_balance));
+        revenueAmount.setText(String.valueOf(total_revenue));
+        expenseAmount.setText(String.valueOf(total_expense));
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        TextView balanceAmount = findViewById(R.id.tvBalanceAmount);
-        TextView revenueAmount = findViewById(R.id.tvRevenueAmount);
-        TextView expenseAmount = findViewById(R.id.tvExpenseAmount);
-
         Button btnAddRevenue = findViewById(R.id.btnAddRevenue);
         Button btnAddExpense = findViewById(R.id.btnAddExpense);
         Button btnViewTransactions = findViewById(R.id.btnViewTransactions);
 
         Intent transactionIntent = new Intent(this, transactions.class);
         Intent showTransactionsIntent = new Intent(this, transactions_list.class);
+
+        // ------------------ DASHBOARD LOGIC ---------------- //
+
+        refreshData();
 
         btnAddRevenue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,5 +95,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(showTransactionsIntent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Optional: Refresh data manually when the activity resumes
+        refreshData();
     }
 }
