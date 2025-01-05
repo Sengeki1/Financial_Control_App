@@ -21,4 +21,7 @@ public interface transactionDao {
 
     @Update
     void update(Transaction transaction);
+
+    @Query("DELETE FROM `transaction` WHERE `transaction_id` = :transactionId")
+    void deleteById(int transactionId);
 }

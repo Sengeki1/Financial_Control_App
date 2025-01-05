@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class AdapterTransaction extends RecyclerView.Adapter<AdapterTransaction.TransactionViewHolder> {
     private LayoutInflater mInflater;
+    private Context context;
     private final List<Transaction> transactionList;
     private EditTransaction editTransaction;
 
@@ -21,12 +24,13 @@ public class AdapterTransaction extends RecyclerView.Adapter<AdapterTransaction.
         this.mInflater = LayoutInflater.from(context);
         this.transactionList = transactionList;
         this.editTransaction = editTransaction;
+        this.context = context;
     }
     @NonNull
     @Override
     public AdapterTransaction.TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.item_recycler, parent, false);
-        return new TransactionViewHolder(itemView, editTransaction, transactionList);
+        return new TransactionViewHolder(itemView, editTransaction, transactionList, context);
     }
 
     @Override
@@ -44,14 +48,15 @@ public class AdapterTransaction extends RecyclerView.Adapter<AdapterTransaction.
         return transactionList.size();
     }
 
-    public static class TransactionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TransactionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public final TextView transactionTitle;
         public final TextView transactionValue;
         public final TextView transactionCategory;
         public final TextView transactionDate;
         private EditTransaction editTransaction;
         private List<Transaction> transactionList;
-        public TransactionViewHolder(@NonNull View itemView, EditTransaction editTransaction, List<Transaction> transactionList) {
+        private Context context;
+        public TransactionViewHolder(@NonNull View itemView, EditTransaction editTransaction, List<Transaction> transactionList, Context context) {
             super(itemView);
             transactionTitle = itemView.findViewById(R.id.transaction_title_id);
             transactionValue = itemView.findViewById(R.id.transaction_value_id);
@@ -59,14 +64,25 @@ public class AdapterTransaction extends RecyclerView.Adapter<AdapterTransaction.
             transactionDate = itemView.findViewById(R.id.transaction_date_id);
             this.editTransaction = editTransaction;
             this.transactionList = transactionList;
+            this.context = context;
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
             String color = transactionList.get(position).color;
-            editTransaction.editTransaction(position, color);
+            editTransaction.editTransaction(transactionList.get(position).transaction_id, color);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            int position = getAdapterPosition();
+            editTransaction.deleteTransaction(transactionList.get(position).transaction_id);
+            transactionList.remove(position);
+            notifyItemRemoved(position);
+            return true;
         }
     }
 

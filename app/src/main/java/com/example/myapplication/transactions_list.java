@@ -19,10 +19,19 @@ public class transactions_list extends AppCompatActivity {
 
     EditTransaction editTransaction = new EditTransaction() {
         @Override
-        public void editTransaction(int position, String color) {
-            intent.putExtra("editTransactionPos", position);
+        public void editTransaction(int id, String color) {
+            intent.putExtra("editTransactionId", id);
             intent.putExtra("editTransactionColor", color);
             startActivity(intent);
+        }
+
+        @Override
+        public void deleteTransaction(int id) {
+            TransactionDatabase db = Room.databaseBuilder(
+                    getBaseContext(), TransactionDatabase.class, "transaction-database"
+            ).allowMainThreadQueries().build();
+
+            db.transactionDao().deleteById(id);
         }
     };
 

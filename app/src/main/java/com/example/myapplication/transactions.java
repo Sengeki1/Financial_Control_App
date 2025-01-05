@@ -27,7 +27,7 @@ public class transactions extends AppCompatActivity {
     String category = "";
     TextView showDateView;
     int checker = 0;
-    int editTransactionCheckerPos = -1;
+    int editTransactionCheckerId = -1;
     String editTransactionCheckerColor = null;
 
     // ----------- CALLBACK FUNCTION --------- //
@@ -59,15 +59,13 @@ public class transactions extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             checker = 0;
-            editTransactionCheckerPos = -1;
+            editTransactionCheckerId = -1;
             editTransactionCheckerColor = null;
         } else if (extras.containsKey("Checker")){
             checker = (int) extras.get("Checker");
         } else {
-            editTransactionCheckerPos = (int) extras.get("editTransactionPos");
+            editTransactionCheckerId = (int) extras.get("editTransactionId");
             editTransactionCheckerColor = (String) extras.get("editTransactionColor");
-            Toast.makeText(getBaseContext(), String.valueOf(editTransactionCheckerPos), Toast.LENGTH_LONG).show();
-            Toast.makeText(getBaseContext(), String.valueOf(editTransactionCheckerColor), Toast.LENGTH_LONG).show();
         }
 
         showDateView = findViewById(R.id.tvSelectedDate);
@@ -122,12 +120,12 @@ public class transactions extends AppCompatActivity {
                         n_value = String.valueOf(-negative_value);
                     }
 
-                    if (editTransactionCheckerPos == -1) {
+                    if (editTransactionCheckerId == -1) {
                         Transaction transaction = new Transaction(n_title, Integer.parseInt(n_value), category, date, color);
                         db.transactionDao().insert(transaction);
-                    } else {
+                    } else { // Update Room database
                         Transaction transaction = new Transaction(n_title, Integer.parseInt(n_value), category, date, color);
-                        transaction.setTransaction_id(editTransactionCheckerPos + 1);
+                        transaction.setTransaction_id(editTransactionCheckerId);
                         transaction.setColor(editTransactionCheckerColor);
                         db.transactionDao().update(transaction);
                     }
