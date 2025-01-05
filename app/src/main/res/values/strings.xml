@@ -18,4 +18,5 @@
     <string name="nenhuma_data_selecionada">Nenhuma data selecionada</string>
     <string name="cancelar">Cancelar</string>
     <string name="salvar">Salvar</string>
+    <string name="saldo">Saldo</string>
 </resources>

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         Intent transactionIntent = new Intent(this, transactions.class);
         Intent showTransactionsIntent = new Intent(this, transactions_list.class);
+        Intent graphIntent = new Intent(this, GraphActivity.class);
 
         // ------------------ DASHBOARD LOGIC ---------------- //
-
         refreshData();
 
         btnAddRevenue.setOnClickListener(new View.OnClickListener() {
@@ -95,12 +97,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(showTransactionsIntent);
             }
         });
+
+        // -------------- GRAPH ---------------- //
+        LinearLayout layoutBalance = findViewById(R.id.cardBalance);
+        LinearLayout layoutRevenue = findViewById(R.id.cardRevenue);
+        LinearLayout layoutExpense = findViewById(R.id.cardExpense);
+
+        layoutBalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(graphIntent);
+            }
+        });
+
+        layoutRevenue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(graphIntent);
+            }
+        });
+
+        layoutExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(graphIntent);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Optional: Refresh data manually when the activity resumes
         refreshData();
     }
 }
