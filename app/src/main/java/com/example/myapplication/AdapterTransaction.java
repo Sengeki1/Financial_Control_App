@@ -15,16 +15,18 @@ import java.util.List;
 public class AdapterTransaction extends RecyclerView.Adapter<AdapterTransaction.TransactionViewHolder> {
     private LayoutInflater mInflater;
     private final List<Transaction> transactionList;
+    private EditTransaction editTransaction;
 
-    public AdapterTransaction(Context context, List<Transaction> transactionList) {
+    public AdapterTransaction(Context context, List<Transaction> transactionList, EditTransaction editTransaction) {
         this.mInflater = LayoutInflater.from(context);
         this.transactionList = transactionList;
+        this.editTransaction = editTransaction;
     }
     @NonNull
     @Override
     public AdapterTransaction.TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.item_recycler, parent, false);
-        return new TransactionViewHolder(itemView);
+        return new TransactionViewHolder(itemView, editTransaction, transactionList);
     }
 
     @Override
@@ -47,18 +49,24 @@ public class AdapterTransaction extends RecyclerView.Adapter<AdapterTransaction.
         public final TextView transactionValue;
         public final TextView transactionCategory;
         public final TextView transactionDate;
-        public TransactionViewHolder(@NonNull View itemView) {
+        private EditTransaction editTransaction;
+        private List<Transaction> transactionList;
+        public TransactionViewHolder(@NonNull View itemView, EditTransaction editTransaction, List<Transaction> transactionList) {
             super(itemView);
             transactionTitle = itemView.findViewById(R.id.transaction_title_id);
             transactionValue = itemView.findViewById(R.id.transaction_value_id);
             transactionCategory = itemView.findViewById(R.id.transaction_category_id);
             transactionDate = itemView.findViewById(R.id.transaction_date_id);
+            this.editTransaction = editTransaction;
+            this.transactionList = transactionList;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-
+            int position = getAdapterPosition();
+            String color = transactionList.get(position).color;
+            editTransaction.editTransaction(position, color);
         }
     }
 

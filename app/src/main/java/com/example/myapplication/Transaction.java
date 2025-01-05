@@ -32,4 +32,12 @@ public class Transaction {
         this.date = date;
         this.color = color;
     }
+
+    public void setTransaction_id(int transaction_id) {
+        this.transaction_id = transaction_id;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }

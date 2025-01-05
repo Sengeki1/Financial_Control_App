@@ -26,6 +26,9 @@ public class transactions extends AppCompatActivity {
     String date = "";
     String category = "";
     TextView showDateView;
+    int checker = 0;
+    int editTransactionCheckerPos = -1;
+    String editTransactionCheckerColor = null;
 
     // ----------- CALLBACK FUNCTION --------- //
     showDate showdate = new showDate() {
@@ -52,7 +55,20 @@ public class transactions extends AppCompatActivity {
             return insets;
         });
 
-        int checker = (int) getIntent().getExtras().get("Checker");
+        // ----------------- INTENTS DATA ----------------- //
+        Bundle extras = getIntent().getExtras();
+        if(extras == null) {
+            checker = 0;
+            editTransactionCheckerPos = -1;
+            editTransactionCheckerColor = null;
+        } else if (extras.containsKey("Checker")){
+            checker = (int) extras.get("Checker");
+        } else {
+            editTransactionCheckerPos = (int) extras.get("editTransactionPos");
+            editTransactionCheckerColor = (String) extras.get("editTransactionColor");
+            Toast.makeText(getBaseContext(), String.valueOf(editTransactionCheckerPos), Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), String.valueOf(editTransactionCheckerColor), Toast.LENGTH_LONG).show();
+        }
 
         showDateView = findViewById(R.id.tvSelectedDate);
         EditText title = findViewById(R.id.etTitle);
@@ -106,8 +122,15 @@ public class transactions extends AppCompatActivity {
                         n_value = String.valueOf(-negative_value);
                     }
 
-                    Transaction transaction = new Transaction(n_title, Integer.parseInt(n_value), category, date, color);
-                    db.transactionDao().insert(transaction);
+                    if (editTransactionCheckerPos == -1) {
+                        Transaction transaction = new Transaction(n_title, Integer.parseInt(n_value), category, date, color);
+                        db.transactionDao().insert(transaction);
+                    } else {
+                        Transaction transaction = new Transaction(n_title, Integer.parseInt(n_value), category, date, color);
+                        transaction.setTransaction_id(editTransactionCheckerPos + 1);
+                        transaction.setColor(editTransactionCheckerColor);
+                        db.transactionDao().update(transaction);
+                    }
 
                     startActivity(intentDashboard);
                 } else {

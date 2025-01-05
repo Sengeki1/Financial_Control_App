@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +15,16 @@ import androidx.room.Room;
 import java.util.List;
 
 public class transactions_list extends AppCompatActivity {
+    private Intent intent;
+
+    EditTransaction editTransaction = new EditTransaction() {
+        @Override
+        public void editTransaction(int position, String color) {
+            intent.putExtra("editTransactionPos", position);
+            intent.putExtra("editTransactionColor", color);
+            startActivity(intent);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +43,10 @@ public class transactions_list extends AppCompatActivity {
 
         List<Transaction> transactions = db.transactionDao().getAllTransactions();
 
+        intent = new Intent(this, transactions.class);
+
         RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
-        AdapterTransaction mAdapter = new AdapterTransaction(this, transactions);
+        AdapterTransaction mAdapter = new AdapterTransaction(this, transactions, editTransaction);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

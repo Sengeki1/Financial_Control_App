@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface transactionDao {
 
     @Query("DELETE FROM `transaction`")
     void deleteAll();
+
+    @Update
+    void update(Transaction transaction);
 }

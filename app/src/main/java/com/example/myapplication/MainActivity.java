@@ -14,9 +14,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -40,11 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent transactionIntent = new Intent(this, transactions.class);
         Intent showTransactionsIntent = new Intent(this, transactions_list.class);
-
-        // --------------------- DATABASE LOGIC ------------------- //
-        TransactionDatabase db = Room.databaseBuilder(
-                getBaseContext(), TransactionDatabase.class, "transaction-database"
-        ).allowMainThreadQueries().build();
 
         btnAddRevenue.setOnClickListener(new View.OnClickListener() {
             @Override
