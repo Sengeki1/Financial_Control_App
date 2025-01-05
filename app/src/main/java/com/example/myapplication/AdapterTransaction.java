@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,11 +81,30 @@ public class AdapterTransaction extends RecyclerView.Adapter<AdapterTransaction.
         @Override
         public boolean onLongClick(View view) {
             int position = getAdapterPosition();
-            editTransaction.deleteTransaction(transactionList.get(position).transaction_id);
-            transactionList.remove(position);
-            notifyItemRemoved(position);
+            AlertDialog dialog = createDialog(position);
+            dialog.show();
             return true;
         }
+    }
+
+    AlertDialog createDialog(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Do you want to delete?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                editTransaction.deleteTransaction(transactionList.get(position).transaction_id);
+                transactionList.remove(position);
+                notifyItemRemoved(position);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        return builder.create();
     }
 
 }
