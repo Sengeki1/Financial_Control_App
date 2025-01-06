@@ -31,6 +31,6 @@ public class DatePickerDialog extends DialogFragment implements android.app.Date
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         date = i2 + "/" + (i1 + 1) + "/" + i;
         callback.returnDate(date);
-        // since java doesnt know work with points we can do a work arround with callbacks
+        // since java doesn't work with points we can do a work around with callbacks
     }
 }

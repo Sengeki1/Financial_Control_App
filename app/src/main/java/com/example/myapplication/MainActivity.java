@@ -16,8 +16,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,6 +74,13 @@ public class MainActivity extends AppCompatActivity {
         Intent transactionIntent = new Intent(this, transactions.class);
         Intent showTransactionsIntent = new Intent(this, transactions_list.class);
         Intent graphIntent = new Intent(this, GraphActivity.class);
+
+        // ------------------ DAILY NOTIFICATION ---------------- //
+
+        PeriodicWorkRequest dailyWorkRequest = new PeriodicWorkRequest.Builder(
+                DailyNotificationWorker.class, 20, TimeUnit.HOURS
+        ).build();
+        WorkManager.getInstance(this).enqueue(dailyWorkRequest);
 
         // ------------------ DASHBOARD LOGIC ---------------- //
         refreshData();
@@ -126,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() { // update data when resumed
         super.onResume();
         refreshData();
     }

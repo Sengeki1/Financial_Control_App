@@ -72,14 +72,14 @@ public class AdapterTransaction extends RecyclerView.Adapter<AdapterTransaction.
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(View view) { // edit Transaction
             int position = getAdapterPosition();
             String color = transactionList.get(position).color;
             editTransaction.editTransaction(transactionList.get(position).transaction_id, color);
         }
 
         @Override
-        public boolean onLongClick(View view) {
+        public boolean onLongClick(View view) { // Alert if yes delete
             int position = getAdapterPosition();
             AlertDialog dialog = createDialog(position);
             dialog.show();

@@ -120,7 +120,7 @@ public class transactions extends AppCompatActivity {
                         n_value = String.valueOf(-negative_value);
                     }
 
-                    if (editTransactionCheckerId == -1) {
+                    if (editTransactionCheckerId == -1) { // insert transaction into database
                         Transaction transaction = new Transaction(n_title, Integer.parseInt(n_value), category, date, color);
                         db.transactionDao().insert(transaction);
                     } else { // Update Room database
