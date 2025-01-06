@@ -2,6 +2,10 @@
 
 This app allows users to manage their personal finances by providing an interface to view, register, and manage financial transactions. It also includes performance charts, daily notifications to remind users to record their transactions, and a pie chart to visualize the financial distribution of transactions.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/99e87787-fd3b-4d54-b4bc-47839a9941a7" width="300" height="650" />
+</p>
+
 ## Features
 
 ### 1. Main Screen
