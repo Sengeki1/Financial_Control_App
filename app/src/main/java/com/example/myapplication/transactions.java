@@ -132,7 +132,7 @@ public class transactions extends AppCompatActivity {
 
                     startActivity(intentDashboard);
                 } else {
-                    Toast.makeText(getBaseContext(), "Porfavor prencha os campos", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Please fill the fields", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -161,9 +161,9 @@ public class transactions extends AppCompatActivity {
         });
 
         ArrayList<String> items = new ArrayList<>();
-        items.add("Alimentação");
-        items.add("Transporte");
-        items.add("Salário");
+        items.add("Food");
+        items.add("Transport");
+        items.add("Wage");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);

@@ -19,4 +19,21 @@
     <string name="cancelar">Cancelar</string>
     <string name="salvar">Salvar</string>
     <string name="saldo">Saldo</string>
+    <string name="earnings">Earnings</string>
+    <string name="transactions">Transactions</string>
+    <string name="expenses">Expenses</string>
+    <string name="revenue">Revenue</string>
+    <string name="total_expenses">Total Expenses</string>
+    <string name="total_revenue">Total Revenue</string>
+    <string name="balance">Balance</string>
+    <string name="title">Title</string>
+    <string name="insert_title">Insert title</string>
+    <string name="value">Value</string>
+    <string name="insert_value">Insert value</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="select_date">Select Date</string>
+    <string name="no_date_selected">No date selected</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>
