@@ -150,8 +150,7 @@ public class transactions extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = adapterView.getItemAtPosition(i).toString();
-                category = item;
+                category = adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
